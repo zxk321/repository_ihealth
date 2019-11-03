@@ -72,4 +72,8 @@ public interface CheckItemDao {
     //查找所有的检查项
     @Select("select * from t_checkitem")
     List<CheckItem> findAll();
+
+    //根据检查组id查询所有关联的检查项
+    @Select("select * from t_checkgroup_checkitem tcc,t_checkitem tc where tcc.checkitem_id=tc.id and tcc.checkgroup_id=#{id};")
+    List<CheckItem> findByCheckGroupId(Integer id);
 }

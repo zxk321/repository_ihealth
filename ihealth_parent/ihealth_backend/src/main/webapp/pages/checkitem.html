@@ -12,6 +12,15 @@
         <link rel="stylesheet" href="../plugins/elementui/index.css">
         <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/style.css">
+        <style>
+            .el-table .warning-row {
+                background: oldlace;
+            }
+
+            .el-table .success-row {
+                background: #f0f9eb;
+            }
+        </style>
     </head>
     <body class="hold-transition">
         <div id="app">
@@ -31,14 +40,8 @@
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
                         <el-button size="mini" type="danger" @click="deleteSelect">删除选中</el-button>
                     </div>
-                    <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row @selection-change="handleSelectionChange">
-                        <!--<el-table-column label="选择" align="center">
-                            <template slot-scope="scope">
-                                <el-checkbox-group v-model="checkitemIds">
-                                    <el-checkbox label="复选框 A" value="checkitemIds"></el-checkbox>
-                                </el-checkbox-group>
-                            </template>
-                        </el-table-column>-->
+                    <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
+
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column type="index" align="center" label="序号"></el-table-column>
                         <el-table-column prop="code" label="项目编码" align="center"></el-table-column>
@@ -130,7 +133,7 @@
                                 </el-row>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisible = false">取消</el-button>
+                                <el-button @click="dialogFormVisible = false;handleCancel()">取消</el-button>
                                 <el-button type="primary" @click="handleAdd('dataAddForm')">确定</el-button>
                             </div>
                         </el-dialog>
@@ -199,7 +202,7 @@
                                 </el-row>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+                                <el-button @click="dialogFormVisible4Edit = false;handleCancel()">取消</el-button>
                                 <el-button type="primary" @click="handleEdit()">确定</el-button>
                             </div>
                         </el-dialog>
@@ -242,6 +245,15 @@
                 this.findPage();
             },
             methods: {
+                //表格行颜色
+                tableRowClassName({row, rowIndex}) {
+                    if (rowIndex%2 != 0) {
+                        return '';
+                    } else if (rowIndex%4 === 0) {
+                        return 'success-row';
+                    }
+                    return 'warning-row';
+                },
                 //编辑
                 handleEdit() {
                     this.$refs["dataEditForm"].validate((valid)=> {
@@ -304,6 +316,7 @@
                 },
                 // 弹出添加窗口
                 handleCreate() {
+                    this.formData = {};
                     this.dialogFormVisible = true;//弹框可见属性更改为true
                     this.$refs["dataAddForm"].resetFields();
                 },
@@ -380,6 +393,12 @@
                             showClose: true,
                             message: "操作已取消"
                         })
+                    })
+                },
+                handleCancel(){
+                    this.$message.warning({
+                        showClose: true,
+                        message: "操作已取消"
                     })
                 }
             }

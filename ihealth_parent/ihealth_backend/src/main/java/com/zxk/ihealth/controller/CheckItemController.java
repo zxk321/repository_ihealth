@@ -69,6 +69,11 @@ public class CheckItemController {
         }
     }
 
+    /**
+     * 根据选择批量删除
+     * @param checkitemIds
+     * @return
+     */
     @RequestMapping("/deleteSelect.do")
     public Result deleteItemSelected(Integer[] checkitemIds){
         try {
