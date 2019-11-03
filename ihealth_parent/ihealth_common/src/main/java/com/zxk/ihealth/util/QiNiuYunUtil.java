@@ -10,7 +10,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 
-public class QiNiuYunUploadUtil {
+public class QiNiuYunUtil {
     // 设置需要操作的账号的AK
     private static final String ACCESS_KEY = "XXXXXXXXXX";
     // 设置需要操作的账号的SK
