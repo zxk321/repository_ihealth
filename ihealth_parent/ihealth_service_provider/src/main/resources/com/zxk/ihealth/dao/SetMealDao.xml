@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zxk.ihealth.dao.CheckItemDao">
+<mapper namespace="com.zxk.ihealth.dao.SetMealDao">
 
-    <!--<select id="findByCondition" parameterType="QueryPageBean" resultType="CheckItem">
-        select * from t_checkitem
+    <!--<select id="findByCondition" parameterType="QueryPageBean" resultType="Setmeal">
+        select * from t_setmeal
         <where>
             <if test="queryString!=null and queryString.length > 0 ">
-                and code like '%${queryString}%' or name like '%${queryString}%'
+                and code like '%${queryString}%' or name like '%${queryString}%' or helpCode like '%${queryString}%'
             </if>
         </where>
     </select>-->

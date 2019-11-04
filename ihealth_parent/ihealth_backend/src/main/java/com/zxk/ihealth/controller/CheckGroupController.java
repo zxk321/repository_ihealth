@@ -3,7 +3,6 @@ package com.zxk.ihealth.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.zxk.ihealth.constant.MessageConstant;
 import com.zxk.ihealth.domain.CheckGroup;
-import com.zxk.ihealth.domain.CheckItem;
 import com.zxk.ihealth.entity.PageResult;
 import com.zxk.ihealth.entity.QueryPageBean;
 import com.zxk.ihealth.entity.Result;
@@ -98,6 +97,21 @@ public class CheckGroupController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, MessageConstant.EDIT_CHECKGROUP_FAIL);
+        }
+    }
+
+    /**
+     * 查询所有检查组
+     * @return
+     */
+    @RequestMapping("/findAll.do")
+    public Result findAll(){
+        try {
+            List<CheckGroup> checkGroupList = checkGroupService.findAll();
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, checkGroupList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
         }
     }
 }

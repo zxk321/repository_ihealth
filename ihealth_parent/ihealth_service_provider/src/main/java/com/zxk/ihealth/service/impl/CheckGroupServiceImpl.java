@@ -101,4 +101,13 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         //最后将检查组信息更新
         checkGroupDao.updateGroup(checkGroup);
     }
+
+    /**
+     * 查询所有检查组
+     * @return
+     */
+    @Override
+    public List<CheckGroup> findAll() {
+        return checkGroupDao.findAll();
+    }
 }

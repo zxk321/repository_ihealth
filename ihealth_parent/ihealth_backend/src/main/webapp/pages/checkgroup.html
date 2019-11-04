@@ -344,8 +344,8 @@
                                         this.$message.error(response.data.message);
                                     }
                                 })
-                                .catch((err)=>{
-                                    console.log(err);
+                                .finally(()=>{
+                                    this.findPage();
                                 });
                         } else {
                             this.$message.error("输入的数据有误，请仔细检查后重新提交！");
@@ -368,14 +368,15 @@
                 // 重置表单
                 resetForm() {
                     this.formData = {};
+                    this.activeName= 'first';
                     //this.$refs["dataAddForm"].resetFields();
                 },
                 // 弹出添加窗口
                 handleCreate() {
                     this.dialogFormVisible = true;
                     this.resetForm();
-                    this.activeName= 'first';
                     this.tableData=[];
+                    this.checkitemIds=[];
                     axios.post("../checkItem/findAll.do")
                         .then((response)=>{
                             if (response.data.flag) {

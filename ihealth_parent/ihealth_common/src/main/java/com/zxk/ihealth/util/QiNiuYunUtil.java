@@ -12,15 +12,15 @@ import com.qiniu.util.Auth;
 
 public class QiNiuYunUtil {
     // 设置需要操作的账号的AK
-    private static final String ACCESS_KEY = "XXXXXXXXXX";
+    private static final String ACCESS_KEY = "GGS-FVGchTrAfcSCpMrmW_6ApNRWzFX4M0SkJxHM";
     // 设置需要操作的账号的SK
-    private static final String SECRET_KEY = "XXXXXXXXXXXXX";
+    private static final String SECRET_KEY = "3o7a1vJNm47CJxWuHB2xzqzjQ-6RStQn4rmPG66l";
     // 要上传的空间
-    private static final String BUCKET = "XXXXXXXXXX";
-    // 域名domainOfBucket
-    private static final String DOMAIN_OF_BUCKET = "XXXXXXXXXX";
+    private static final String BUCKET = "zxk-ihealth";
     // 华东是Zone.zone0(),华北是Zone.zone1(),华南是Zone.zone2(),北美是Zone.zoneNa0()
     private static final Zone ZONE = Zone.zone0();   // todo
+    // 外链域名
+    private static final String DOMAIN = "http://q0fj3x9ly.bkt.clouddn.com/";
 
     /**
      * 通过字节数组上传文件

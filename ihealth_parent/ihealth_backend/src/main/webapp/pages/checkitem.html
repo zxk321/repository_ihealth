@@ -20,6 +20,7 @@
             .el-table .success-row {
                 background: #f0f9eb;
             }
+
         </style>
     </head>
     <body class="hold-transition">
@@ -291,8 +292,8 @@
                                         this.$message.error(response.data.message);
                                     }
                                 })
-                                .catch((err)=>{
-                                    console.log(err);
+                                .finally(()=>{
+                                    this.findPage();
                                 });
                         } else {
                             this.$message.error("输入的数据有误，请仔细检查后重新提交！");

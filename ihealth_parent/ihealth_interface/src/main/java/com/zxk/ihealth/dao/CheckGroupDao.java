@@ -85,4 +85,8 @@ public interface CheckGroupDao {
             "where id = #{id}",
             "</script>"})
     void updateGroup(CheckGroup checkGroup);
+
+    @Select("select * from t_checkgroup")
+    List<CheckGroup> findAll();
+
 }

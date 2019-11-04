@@ -9,75 +9,64 @@
     <meta name="keywords" content="传智健康">
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="plugins/elementui/index.css">
-    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
     <style type="text/css">
-    .el-main{
-        position: absolute;
-        top: 70px;
-        bottom: 0px;
-        left: 200px;
-        right: 10px;
-        padding: 0;
-    }
+        a:link {
+            color:#FFF;
+            text-decoration:none;
+        }
+        a:visited {
+            color:#FFF;
+            text-decoration:none;
+        }
+        a:hover {
+            color:#FFD04B;
+            text-decoration:none;
+        }
+        a:active {
+            color:#FFD04B;
+            text-decoration:none;
+        }
     </style>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
     <div id="app">
-        <el-container>
-            <el-header  class="main-header" style="height:70px;">
-                <nav class="navbar navbar-static-top" :class=''>
-                    <!-- Logo -->
-                    <a href="#" class="logo" style="text-align:center">
-                        <span class="logo-lg"><img src="img/logo.png"></span>
-                    </a>
-                    <div class="right-menu">
-                        <span class="help"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>帮助</span>
-                        <el-dropdown class="avatar-container right-menu-item" trigger="click">
-                            <div class="avatar-wrapper">
-                                <img src="img/user2-160x160.jpg" class="user-avatar">
-                                Jay.Liu
-                            </div>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item divided>
-                                    <span style="display:block;">修改密码</span>
-                                </el-dropdown-item>
-                                <el-dropdown-item divided>
-                                        <span style="display:block;">退出</span>
-                                    </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </div>
-                </nav>
-            </el-header>
-            <el-container>
+        <!--<el-row class="tac">-->
+            <!--<el-col :span="12">-->
+                <h5>自定义颜色</h5>
                 <el-aside width="200px">
-                    <el-menu>
-                        <el-submenu v-for="menu in menuList" :index="menu.path">
-                            <template slot="title">
-                                <i class="fa" :class="menu.icon"></i>
-                                {{menu.title}}
-                            </template>
-                            <template v-for="child in menu.children">
-                                <el-menu-item :index="child.path">
-                                    <a :href="child.linkUrl" target="right">{{child.title}}</a>
-                                </el-menu-item>
-                            </template>
-                        </el-submenu>
-                    </el-menu>
+                <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        background-color="#545c64"
+                        text-color="#fff"
+                        active-text-color="#ffd04b">
+                    <el-submenu v-for="menu in menuList" :index="menu.path">
+                        <template slot="title">
+                            <i class="fa" :class="menu.icon"></i>
+                            <span>{{menu.title}}</span>
+                        </template>
+                        <el-menu-item-group v-for="child in menu.children">
+                            <el-menu-item :index="child.path">
+                                <a :href="child.linkUrl" target="right">{{child.title}}</a>
+                            </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
                 </el-aside>
-                <el-container>
-                    <iframe name="right" class="el-main" src="ordersetting.html" width="100%" height="580px" frameborder="0"></iframe>
-                </el-container>
-            </el-container>
-        </el-container>
+            <!--</el-col>-->
+        <!--</el-row>-->
     </div>
 </body>
 <!-- 引入组件库 -->
-<script src="js/vue.js"></script>
-<script src="plugins/elementui/index.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script>
     new Vue({
         el: '#app',
@@ -177,11 +166,17 @@
                     ]
                 }
             ]
+
+        },
+        methods:{
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
         }
     });
-    $(function() {
-            var wd = 200;
-            $(".el-main").css('width', $('body').width() - wd + 'px');
-    });
+
 </script>
 </html>

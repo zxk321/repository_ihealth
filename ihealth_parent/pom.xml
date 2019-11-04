@@ -12,6 +12,7 @@
         <module>ihealth_interface</module>
         <module>ihealth_service_provider</module>
         <module>ihealth_backend</module>
+        <module>ihealth_jobs</module>
     </modules>
     <packaging>pom</packaging>
 
