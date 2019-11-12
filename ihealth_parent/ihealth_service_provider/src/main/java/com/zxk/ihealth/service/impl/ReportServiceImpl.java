@@ -57,12 +57,13 @@ public class ReportServiceImpl implements ReportService {
         map.put("thisWeekNewMember",member_weekCount);
         map.put("thisMonthNewMember",member_monthCount);
         map.put("todayOrderNumber",order_todayCount);
-        map.put("todayVisitsNumber",order_weekCount);
-        map.put("thisWeekOrderNumber",order_monthCount);
-        map.put("thisWeekVisitsNumber",order_todayVisitedCount);
-        map.put("thisMonthOrderNumber",order_weekVisitedCount);
+        map.put("thisWeekOrderNumber",order_weekCount);
+        map.put("thisMonthOrderNumber",order_monthCount);
+        map.put("todayVisitsNumber",order_todayVisitedCount);
+        map.put("thisWeekVisitsNumber",order_weekVisitedCount);
         map.put("thisMonthVisitsNumber",order_monthVisitedCount);
         map.put("hotSetmeal",hotSetmealList);
+
         //返回数据
         return map;
     }

@@ -6,9 +6,17 @@ import com.zxk.ihealth.entity.Result;
 import com.zxk.ihealth.service.MemberService;
 import com.zxk.ihealth.service.OrderService;
 import com.zxk.ihealth.service.ReportService;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -81,6 +89,69 @@ public class ReportController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false,MessageConstant.GET_BUSINESS_REPORT_SUCCESS);
+        }
+    }
+
+    /**
+     * 导出运营数据
+     * @return
+     */
+    @RequestMapping("/exportBusinessReport.do")
+    public void exportBusinessReport(HttpSession session, HttpServletResponse response) throws IOException {
+        try{
+            //查询相关数据
+            Map<String,Object> map = reportService.getOperationData();
+
+            //获取报表路径
+            String path = session.getServletContext().getRealPath("/")+"template/report_template.xlsx";
+
+            //创建工作簿
+            XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(path));
+            if (workbook!=null){
+                //获取工作表
+                XSSFSheet sheet = workbook.getSheetAt(0);
+                if (sheet!=null){
+                    //获取单元格
+                    sheet.getRow(2).getCell(5).setCellValue(map.get("reportDate").toString());
+                    sheet.getRow(4).getCell(5).setCellValue(map.get("todayNewMember").toString());
+                    sheet.getRow(4).getCell(7).setCellValue(map.get("totalMember").toString());
+                    sheet.getRow(5).getCell(5).setCellValue(map.get("thisWeekNewMember").toString());
+                    sheet.getRow(5).getCell(7).setCellValue(map.get("thisMonthNewMember").toString());
+
+                    sheet.getRow(7).getCell(5).setCellValue(map.get("todayOrderNumber").toString());
+                    sheet.getRow(8).getCell(5).setCellValue(map.get("thisWeekOrderNumber").toString());
+                    sheet.getRow(9).getCell(5).setCellValue(map.get("thisMonthOrderNumber").toString());
+
+                    sheet.getRow(7).getCell(7).setCellValue(map.get("todayVisitsNumber").toString());
+                    sheet.getRow(8).getCell(7).setCellValue(map.get("thisWeekVisitsNumber").toString());
+                    sheet.getRow(9).getCell(7).setCellValue(map.get("thisMonthVisitsNumber").toString());
+
+                    List hotSetmeal = (List) map.get("hotSetmeal");
+                    //遍历map集合中hotSetmeal集合
+                    for (int i = 0; i < hotSetmeal.size(); i++) {
+
+                        Map setmealMap = (Map) hotSetmeal.get(i);
+                        //获取行
+                        Row row = sheet.getRow(12+i);
+                        row.getCell(4).setCellValue(setmealMap.get("name").toString());
+                        row.getCell(5).setCellValue(setmealMap.get("setmeal_count").toString());
+                        row.getCell(6).setCellValue(setmealMap.get("proportion").toString());
+                    }
+
+                    //设置响应头
+                    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                    String filename = new String("运营数据统计表.xlsx".getBytes("utf-8"),"iso-8859-1");
+                    response.setHeader("content-Disposition","attachment;filename="+filename);
+                    ServletOutputStream outputStream = response.getOutputStream();
+                    //输出
+                    workbook.write(outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+                    workbook.close();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

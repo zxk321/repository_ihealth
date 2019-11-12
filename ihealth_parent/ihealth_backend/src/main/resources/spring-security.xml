@@ -66,6 +66,6 @@
 
     <!--消息资源-->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basenames" value="classpath:messages_zh_CN"></property>
+        <property name="basenames" value="classpath:messages"></property>
     </bean>
 </beans>
