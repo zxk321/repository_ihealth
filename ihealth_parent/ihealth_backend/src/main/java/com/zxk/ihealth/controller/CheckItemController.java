@@ -7,6 +7,7 @@ import com.zxk.ihealth.entity.PageResult;
 import com.zxk.ihealth.entity.QueryPageBean;
 import com.zxk.ihealth.entity.Result;
 import com.zxk.ihealth.service.CheckItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class CheckItemController {
      * @param checkItem
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_ADD')")
     @RequestMapping("/addItem.do")
     public Result addItem(@RequestBody CheckItem checkItem){
         try {
@@ -45,6 +47,7 @@ public class CheckItemController {
      * @param pageBean
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean pageBean){
         //System.out.println(pageBean);
@@ -58,6 +61,7 @@ public class CheckItemController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")
     @RequestMapping("/deleteItem.do")
     public Result deleteItemById(Integer id){
         try {
@@ -74,6 +78,7 @@ public class CheckItemController {
      * @param checkitemIds
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")
     @RequestMapping("/deleteSelect.do")
     public Result deleteItemSelected(Integer[] checkitemIds){
         try {
@@ -94,6 +99,7 @@ public class CheckItemController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     @RequestMapping("/findById.do")
     public Result findItemById(Integer id){
         try {
@@ -105,6 +111,12 @@ public class CheckItemController {
         }
     }
 
+    /**
+     * 编辑检查项
+     * @param checkItem
+     * @return
+     */
+    @PreAuthorize("hasAuthority('CHECKITEM_EDIT')")
     @RequestMapping("/updateItem.do")
     public Result updateItemById(@RequestBody CheckItem checkItem){
         try {
@@ -120,6 +132,7 @@ public class CheckItemController {
      * 查询所有检查项
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     @RequestMapping("/findAll.do")
     public Result findAllCheckItem(){
         try {

@@ -12,6 +12,7 @@ import com.zxk.ihealth.service.SetMealService;
 import com.zxk.ihealth.util.AliYunUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,7 @@ public class SetMealController {
      * @param pageBean
      * @return
      */
+    @PreAuthorize("hasAuthority('SETMEAL_QUERY')")
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean pageBean){
         return setMealService.findPage(pageBean);
@@ -44,6 +46,7 @@ public class SetMealController {
      * @param imgFile
      * @return
      */
+    @PreAuthorize("hasAuthority('SETMEAL_EDIT')")
     @RequestMapping("/upload.do")
     public Result uploadImg(@RequestParam("imgFile") MultipartFile imgFile){
         try {
@@ -71,6 +74,7 @@ public class SetMealController {
      * @param checkgroupIds
      * @return
      */
+    @PreAuthorize("hasAuthority('SETMEAL_ADD')")
     @RequestMapping("/addMeal.do")
     public Result addGroup(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
         try {

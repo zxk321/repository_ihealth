@@ -1,5 +1,7 @@
 package com.zxk.ihealth.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class Order implements Serializable{
     public static final String ORDERSTATUS_NO = "未到诊";
     private Integer id;
     private Integer memberId;//会员id
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date orderDate;//预约日期
     private String orderType;//预约类型 电话预约/微信预约
     private String orderStatus;//预约状态（是否到诊）

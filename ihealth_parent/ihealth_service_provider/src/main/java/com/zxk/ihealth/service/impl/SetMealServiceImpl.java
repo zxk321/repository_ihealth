@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service(interfaceClass = SetMealService.class)
@@ -24,6 +25,30 @@ public class SetMealServiceImpl implements SetMealService {
     @Autowired
     private JedisPool jedisPool;
 
+    /**
+     * 查询所有的检查套餐
+     * @return
+     */
+    @Override
+    public List<Setmeal> getSetmeal() {
+        return setMealDao.getSetmeal();
+    }
+
+    /**
+     * 根基id查询检查套餐
+     * @param id
+     * @return
+     */
+    @Override
+    public Setmeal findById(Integer id) {
+        return setMealDao.findById(id);
+    }
+
+    /**
+     * 分页展示检查套餐
+     * @param pageBean
+     * @return
+     */
     @Override
     public PageResult findPage(QueryPageBean pageBean) {
         //设置分页查询参数

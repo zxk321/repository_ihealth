@@ -7,6 +7,7 @@ import com.zxk.ihealth.entity.PageResult;
 import com.zxk.ihealth.entity.QueryPageBean;
 import com.zxk.ihealth.entity.Result;
 import com.zxk.ihealth.service.CheckGroupService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class CheckGroupController {
      * @param checkitemIds
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_ADD')")
     @RequestMapping("/addGroup.do")
     public Result addGroup(@RequestBody CheckGroup checkGroup,Integer[] checkitemIds){
         try {
@@ -43,6 +45,7 @@ public class CheckGroupController {
      * @param pageBean
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_QUERY')")
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean pageBean){
         //System.out.println(pageBean);
@@ -56,6 +59,7 @@ public class CheckGroupController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_QUERY')")
     @RequestMapping("/findById.do")
     public Result findItemById(Integer id){
         try {
@@ -72,6 +76,7 @@ public class CheckGroupController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_QUERY')")
     @RequestMapping("/findRelationById.do")
     public Result findRelationById(Integer id){
         try {
@@ -89,6 +94,7 @@ public class CheckGroupController {
      * @param checkitemIds
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_EDIT')")
     @RequestMapping("/updateGroup.do")
     public Result updateGroup(@RequestBody CheckGroup checkGroup,Integer[] checkitemIds){
         try {
@@ -104,6 +110,7 @@ public class CheckGroupController {
      * 查询所有检查组
      * @return
      */
+    @PreAuthorize("hasAuthority('CHECKGROUP_QUERY')")
     @RequestMapping("/findAll.do")
     public Result findAll(){
         try {

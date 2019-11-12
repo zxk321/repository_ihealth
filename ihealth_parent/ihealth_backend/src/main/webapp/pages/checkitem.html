@@ -352,7 +352,11 @@
                                 }
                             })
                             .catch((err)=>{
-                                console.log(err);
+                                if (err == "Error: Request failed with status code 403") {
+                                    this.$message.error("对不起，您的权限不足！")
+                                }else {
+                                    this.$message.error("未知错误！")
+                                }
                             })
                             .finally(()=>{
                                 this.findPage();

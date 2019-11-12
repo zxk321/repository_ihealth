@@ -19,6 +19,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--委托过滤器代理，注意： filter-name不能更改-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!--前端核心控制器-->
     <servlet>
         <servlet-name>springmvc</servlet-name>

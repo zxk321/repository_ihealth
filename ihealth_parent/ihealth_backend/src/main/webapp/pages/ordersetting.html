@@ -35,7 +35,7 @@
                     <el-card class="box-card">
                         <div class="boxMain">
                             <el-button style="margin-bottom: 20px;margin-right: 20px" type="primary" @click="downloadTemplate()">模板下载</el-button>
-                            <el-upload action="/ordersetting/upload.do"
+                            <el-upload action="/orderSetting/upload.do"
                                        name="excelFile"
                                        :show-file-list="false"
                                        :on-success="handleSuccess"
@@ -140,6 +140,22 @@
             methods: {
 				//预约设置
                 handleOrderSet(day){
+                    this.$prompt('请输入可预约人数', '预约设置', {
+                        inputPattern: /^[0-9]*[1-9][0-9]*$/,
+                        inputErrorMessage: '只能输入正整数'
+                    }).then(({ value }) => {
+                        axios.post("/orderSetting/editOrderSetting.do",{orderDate:this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()),number:value})
+                            .then((res)=>{
+                                if (res.data.flag){
+                                    this.initData(this.formatDate(day.getFullYear(),day.getMonth()+1,1));
+                                    this.$message.success(res.data.message);
+                                }else {
+                                    this.$message.error(res.data.message);
+                                }
+                            });
+                    }).catch(() => {
+                        this.$message.info("操作已取消");
+                    });
                 },
 				//上传之前进行文件格式校验
                 beforeUpload(file){
@@ -156,7 +172,7 @@
                 },
 				//下载模板文件
                 downloadTemplate(){
-                    window.location.href="../../template/ordersetting_template.xlsx";
+                    window.location.href="../template/ordersetting_template.xlsx";
                 },
 				//上传成功提示
                 handleSuccess(response, file) {
@@ -168,7 +184,7 @@
                     }else{
                         this.$message.error(response.message);
                     }
-                    console.log(response, file, fileList);
+                    this.initData(null);
                 },
                 //初始化当前页要展示的日期
 				initData: function (cur) {
@@ -230,6 +246,14 @@
                         { date: 6, number: 120, reservations: 1 },
                         { date: 8, number: 120, reservations: 1 }
                     ];*/
+                    axios.post("/orderSetting/findOrderSettingByMonth.do?date="+this.currentYear+"-"+this.currentMonth,)
+                        .then((res)=>{
+                            if (res.data.flag) {
+                                this.leftobj = res.data.data;
+                            }else {
+                                this.$message.error(res.data.message)
+                            }
+                        })
                 },
 				//切换到当前月份
                 goCurrentMonth: function (year, month) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 页面 css js -->
+    <script src="../plugins/vue/vue.js"></script>
+    <script src="../plugins/vue/axios-0.18.0.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="getURLParam('name')">点我</button>
+</div>
+
+
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+
+        },
+        methods:{
+            getURLParam(parameter){
+                var location = window.location.search;//?id=2&name=zxc
+                var params = location.substr(1);//id=2&name=zxc
+                //alert(params);
+                var paramList = params.split("&");//id=2,name=zxc
+                //alert(paramList);
+                for (var i = 0; i < paramList.length; i++) {
+                    var param = paramList[i].split("=");
+                    if (parameter === param[0]){
+                        return param[1];
+                    }
+                }
+                return "";
+            },
+        }
+    })
+</script>
+
+</body>
+</html>
